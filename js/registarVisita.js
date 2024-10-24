@@ -1,5 +1,5 @@
 // URL del API para obtener clientes
-const apiUrl = 'http://www.musclegarage.somee.com/Clientes';  // Cambia esto según tu API
+const apiUrl = 'https://www.musclegarage.somee.com/Clientes';  // Cambia esto según tu API
 
 // Elementos del DOM
 const searchInput = document.getElementById('search-client');
@@ -98,7 +98,7 @@ async function registerVisit(cedula) {
     };
 
     try {
-        const response = await fetch('http://www.musclegarage.somee.com/Visita', {
+        const response = await fetch('https://www.musclegarage.somee.com/Visita', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

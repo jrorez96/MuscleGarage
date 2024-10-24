@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiUrl = 'http://www.musclegarage.somee.com/Usuarios'; // URL de tu API
+    const apiUrl = 'https://www.musclegarage.somee.com/Usuarios'; // URL de tu API
     let users = [];
     let selectedUser = null;
 

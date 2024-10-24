@@ -2,7 +2,7 @@
 async function obtenerPagos(fechaInicio, fechaFin) {
     try {
         // Aquí coloca la URL de tu API
-        const url = `http://www.musclegarage.somee.com/Pagos/pagosPorFecha?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+        const url = `https://www.musclegarage.somee.com/Pagos/pagosPorFecha?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
         const respuesta = await fetch(url);
         const pagos = await respuesta.json();
 

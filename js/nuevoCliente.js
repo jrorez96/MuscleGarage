@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const membresiaSelect = document.getElementById('membresia');
 
     function cargarMembresias() {
-        fetch('https://localhost:7069/Membresias') // Reemplaza con la URL correcta de tu API
+        fetch('https://www.musclegarage.somee.com/Membresias') // Reemplaza con la URL correcta de tu API
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la carga de membresías: ' + response.statusText);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Datos del cliente a enviar:', cliente);
         console.log('Valor de membresía seleccionado:', membresiaSelect.value);
 
-        fetch('https://localhost:7069/Clientes', {
+        fetch('https://www.musclegarage.somee.com/Clientes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

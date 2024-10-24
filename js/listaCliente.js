@@ -1,4 +1,4 @@
-const apiUrl = 'http://www.musclegarage.somee.com/Clientes';
+const apiUrl = 'https://www.musclegarage.somee.com/Clientes';
 let clients = [];  // Aquí se almacenarán los clientes
 
 // Función para abrir el pop-up de pago
@@ -14,7 +14,7 @@ async function submitPayment() {
     const cedula = document.getElementById('payment-cedula').value;
     const fecha = document.getElementById('payment-date').value;
 
-    const apiPaymentUrl = `http://www.musclegarage.somee.com/Pagos`;  // Ajusta la URL según tu API
+    const apiPaymentUrl = `https://www.musclegarage.somee.com/Pagos`;  // Ajusta la URL según tu API
     const paymentData = {
         cedula: cedula,
         fecha: fecha,
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         // Endpoint del API para registrar el pago
-        const apiPaymentUrl = 'http://www.musclegarage.somee.com/Pagos';
+        const apiPaymentUrl = 'https://www.musclegarage.somee.com/Pagos';
     
         try {
             const response = await fetch(apiPaymentUrl, {

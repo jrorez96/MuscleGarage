@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Cargar productos desde la API
-    fetch('http://www.musclegarage.somee.com/Productos') // Reemplaza con la URL de tu API
+    fetch('https://www.musclegarage.somee.com/Productos') // Reemplaza con la URL de tu API
         .then(response => response.json())
         .then(data => {
             const productoSelect = document.getElementById('producto');
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error('Error al cargar productos:', error));
 
     // Cargar tipos de pago desde la API
-    fetch('http://www.musclegarage.somee.com/TipoPago') // Reemplaza con la URL de tu API
+    fetch('https://www.musclegarage.somee.com/TipoPago') // Reemplaza con la URL de tu API
         .then(response => response.json())
         .then(data => {
             const tipoPagoSelect = document.getElementById('tipoPago');
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log(JSON.stringify(ventaData)); // Verificar qué se está enviando
 
-        fetch('http://www.musclegarage.somee.com/VentaProducto', { // Reemplaza con la URL de tu API
+        fetch('https://www.musclegarage.somee.com/VentaProducto', { // Reemplaza con la URL de tu API
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
