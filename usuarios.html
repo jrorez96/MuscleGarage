@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Clientes</title>
+    <link rel="stylesheet" href="css/tailwind.min.css">
+</head>
+<body class="min-h-100 bg-gray-200">
+    <div class="md:flex min-h-screen">
+        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+            <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Dashboard</h1>
+            <nav class="mt-8">
+
+                <a  
+                    href="registar-visita.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Registrar Visita</a>
+                <a  
+                    href="/" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Clientes</a>
+                <a 
+                    href="historial-pagos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Historial de Pagos</a>
+
+                <a 
+                    href="listaProductos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Productos</a>
+
+                <a 
+                    href="registrarVenta.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Registrar venta</a>
+
+                <a 
+                    href="usuarios.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Usuarios</a>
+
+                <a 
+                    href="login.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Salir</a>
+            </nav>
+        </aside> <!--sidebar-->
+
+        <main class="flex-1 px-5 py-10 bg-gray-200">
+            <div class="container mx-auto p-6">
+                <h1 class="text-2xl font-bold mb-4">Gestión de Usuarios</h1>
+                <div class="mb-4">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre" class="border p-2 w-full">
+                </div>
+                <table class="table-auto w-full bg-white shadow-md rounded">
+                    <thead>
+                        <tr class="bg-gray-200 text-left">
+                            <th class="p-2">Usuario</th>
+                            <th class="p-2">Nombre</th>
+                            <th class="p-2">Password</th>
+                            <th class="p-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- Aquí se renderizarán los usuarios -->
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- Pop-up para editar usuario -->
+            <div id="editPopup" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                <div class="bg-white p-6 rounded-md shadow-md">
+                    <h2 class="text-xl font-bold mb-4">Editar Usuario</h2>
+                    <form id="editForm">
+                        <div class="mb-4">
+                            <label for="editUser" class="block font-medium">usuario:</label>
+                            <input type="text" id="editUser" class="border p-2 w-full">
+                        </div>
+                        <div class="mb-4">
+                            <label for="editName" class="block font-medium">nombre:</label>
+                            <input type="text" id="editName" class="border p-2 w-full">
+                        </div>
+                        <div class="mb-4">
+                            <label for="editPassword" class="block font-medium">password:</label>
+                            <input type="text" id="editPassword" class="border p-2 w-full">
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar cambios</button>
+                            <button type="button" id="cancelBtn" class="bg-gray-500 text-white px-4 py-2 rounded ml-2">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script src="js/usuarios.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Clientes</title>
+    <link rel="stylesheet" href="css/tailwind.min.css">
+</head>
+<body class="min-h-100 bg-gray-200">
+    <div class="md:flex min-h-screen">
+        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+            <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Dashboard</h1>
+            <nav class="mt-8">
+
+                <a  
+                    href="registar-visita.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Registrar Visita</a>
+                <a  
+                    href="/" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Clientes</a>
+                <a 
+                    href="historial-pagos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Historial de Pagos</a>
+
+                <a 
+                    href="listaProductos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Productos</a>
+
+                <a 
+                    href="registrarVenta.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Registrar venta</a>
+
+                <a 
+                    href="usuarios.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Usuarios</a>
+
+                <a 
+                    href="login.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Salir</a>
+            </nav>
+        </aside> <!--sidebar-->
+
+        <main class="flex-1 px-5 py-10 bg-gray-200">
+            <h2 class="text-xl font-bold mb-5">Registrar Venta</h2>
+        
+            <form id="venta-form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="producto">
+                        Producto
+                    </label>
+                    <select id="producto" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Seleccione un producto</option>
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tipoPago">
+                        Tipo de Pago
+                    </label>
+                    <select id="tipoPago" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Seleccione un tipo de pago</option>
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="cantidad">
+                        Cantidad
+                    </label>
+                    <input id="cantidad" type="number" min="1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese la cantidad">
+                </div>
+        
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="precio">
+                        Precio
+                    </label>
+                    <input id="precio" type="number" step="0.01" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese el precio">
+                </div>
+        
+                <div class="flex items-center justify-between">
+                    <button type="button" id="agregar-venta" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Agregar Venta
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+
+    <script src="js/ventas.js"></script>
+</body>
+</html>

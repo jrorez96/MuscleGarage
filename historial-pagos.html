@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Clientes</title>
+    <link rel="stylesheet" href="css/tailwind.min.css">
+</head>
+<body class="min-h-100 bg-gray-200">
+    <div class="md:flex min-h-screen">
+        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+            <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Dashboard</h1>
+            <nav class="mt-8">
+
+                <a  
+                    href="registar-visita.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Registrar Visita</a>
+                <a  
+                    href="/" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Clientes</a>
+                <a 
+                    href="historial-pagos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Historial de Pagos</a>
+
+                <a 
+                    href="listaProductos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Productos</a>
+
+                <a 
+                    href="registrarVenta.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Registrar venta</a>
+
+                <a 
+                    href="usuarios.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Usuarios</a>
+
+                <a 
+                    href="login.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Salir</a>
+            </nav>
+        </aside> <!--sidebar-->
+
+        <main class="flex-1 px-5 py-10 bg-gray-200">
+            <h2 class="text-3xl font-light text-center mb-5">Pagos</h2>
+
+            <!-- Filtros por fecha -->
+            <div class="flex justify-between items-center mb-5">
+                <div class="flex space-x-4">
+                    <!-- Campo de Fecha de Inicio -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="fechaInicio">Fecha Inicio</label>
+                        <input id="fechaInicio" type="date" class="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <!-- Campo de Fecha de Fin -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="fechaFin">Fecha Fin</label>
+                        <input id="fechaFin" type="date" class="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex space-x-4">
+                    <!-- Botón de Buscar -->
+                    <button id="buscar" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">
+                        Buscar
+                    </button>
+
+                    <!-- Botón de Descargar Reporte -->
+                    <button id="descargarReporte" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                        Descargar Reporte
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabla de pagos -->
+            <table class="min-w-full bg-white rounded shadow-md">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Cédula</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Nombre</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Membresia</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha de Pago</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Monto</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="pago-list" class="divide-y divide-gray-200">
+                    <!-- Pagos dinámicos se mostrarán aquí -->
+                </tbody>
+            </table>
+
+            <!-- Controles de paginación -->
+            <div id="pagination" class="mt-5 flex justify-center"></div>
+        </main>
+    </div>
+
+    <!-- Incluir la librería SheetJS para generar el reporte Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+
+    <!-- Incluir el archivo de JavaScript -->
+    <script src="js/listaPagos.js"></script>
+</body>
+</html>

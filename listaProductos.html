@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Clientes</title>
+    <link rel="stylesheet" href="css/tailwind.min.css">
+</head>
+<body class="min-h-100 bg-gray-200">
+    <div class="md:flex min-h-screen">
+        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+            <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Dashboard</h1>
+            <nav class="mt-8">
+
+                <a  
+                    href="registar-visita.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Registrar Visita</a>
+                <a  
+                    href="/" 
+                    class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Clientes</a>
+                <a 
+                    href="historial-pagos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Historial de Pagos</a>
+
+                <a 
+                    href="listaProductos.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Productos</a>
+
+                <a 
+                    href="registrarVenta.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Registrar venta</a>
+
+                <a 
+                    href="usuarios.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Usuarios</a>
+
+                <a 
+                    href="login.html" 
+                    class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+                >Salir</a>
+            </nav>
+        </aside> <!--sidebar-->
+
+        <main class="flex-1 px-5 py-10 bg-gray-200">
+            <h2 class="text-3xl font-light text-center mb-5">Productos</h2>
+
+            <!-- Buscador de clientes -->
+            <div class="flex justify-between items-center mb-5">
+                <input
+                    id="search-product"
+                    type="text"
+                    placeholder="Buscar producto..."
+                    class="appearance-none border rounded py-2 px-3 text-gray-700"
+                />
+                <button id="add-product-btn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                    Agregar producto
+                </button>
+            </div>
+
+            <!-- Tabla de clientes -->
+            <table class="min-w-full bg-white rounded shadow-md">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Nombre</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Cantidad</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Precio</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list" class="divide-y divide-gray-200">
+                    <!-- Clientes dinámicos aquí -->
+                </tbody>
+            </table>
+
+            <!-- Controles de paginación -->
+            <div id="pagination" class="mt-5 flex justify-center"></div>
+        </main>
+    </div>
+
+    <!-- Formulario emergente de pago -->
+    <div id="payment-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-lg font-bold mb-4">Registrar Pago</h2>
+            <form id="payment-form">
+                <div class="mb-4">
+                    <label for="payment-cedula" class="block text-gray-700">Cédula:</label>
+                    <input type="text" id="payment-cedula" name="cedula" class="border rounded w-full py-2 px-3" readonly>
+                </div>
+                <div class="mb-4">
+                    <label for="payment-date" class="block text-gray-700">Fecha de pago:</label>
+                    <input type="date" id="payment-date" name="fecha_pago" class="border rounded w-full py-2 px-3">
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded mr-2" onclick="closePaymentPopup()">Cancelar</button>
+                    <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="js/listaProductos.js"></script>
+</body>
+</html>
