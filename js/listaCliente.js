@@ -12,12 +12,19 @@ function openPaymentPopup(cedula) {
 // Función para enviar el pago
 async function submitPayment() {
     const cedula = document.getElementById('payment-cedula').value;
-    const fecha = document.getElementById('payment-date').value;
+    const FechaDePago = document.getElementById('payment-date').value;
+
+    // Depuración: Verifica el valor de la fecha antes de enviar
+    console.log("Fecha de pago:", FechaDePago);
+    if (!FechaDePago) {
+        alert("Por favor ingresa una fecha de pago.");
+        return;
+    }
 
     const apiPaymentUrl = `https://www.musclegarage.somee.com/Pagos`;  // Ajusta la URL según tu API
     const paymentData = {
         cedula: cedula,
-        fecha: fecha,
+        FechaDePago: FechaDePago,
     };
 
     try {
@@ -49,15 +56,28 @@ function closePaymentPopup() {
 async function deleteClient(cedula) {
     const apiDeleteUrl = `${apiUrl}/${cedula}`;
     try {
-        await fetch(apiDeleteUrl, {
+        const response = await fetch(apiDeleteUrl, {
             method: 'DELETE',
         });
+
+        if (!response.ok) {
+            throw new Error('Error en la eliminación del cliente');
+        }
+
+        // Suponiendo que el API devuelve un mensaje en formato JSON
+        const data = await response.json();
+        alert(data.message);  // Muestra el mensaje de éxito del servidor
+
+        // Actualizar la lista de clientes y renderizar nuevamente
         clients = clients.filter(client => client.cedula !== cedula);
         renderClients();
+
     } catch (error) {
         console.error('Error al eliminar el cliente:', error);
+        alert('Error al eliminar el cliente: ' + error.message);
     }
 }
+
 
 // Función para abrir el pop-up de edición de cliente
 function openEditClientPopup(cedula) {
@@ -252,40 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.getElementById('payment-popup').addEventListener('submit', async function(event) {
+    document.getElementById('payment-form').addEventListener('submit', async function(event) {
         event.preventDefault();  // Prevenir el comportamiento por defecto del formulario
-        
-        const cedula = document.getElementById('payment-cedula').value;
-        const fechaPago = document.getElementById('payment-date').value;
-        
-        if (!fechaPago) {
-            alert('Por favor ingresa una fecha de pago.');
-            return;
-        }
-    
-        // Endpoint del API para registrar el pago
-        const apiPaymentUrl = 'https://www.musclegarage.somee.com/Pagos';
-    
-        try {
-            const response = await fetch(apiPaymentUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ cedula, fecha_pago: fechaPago }),
-            });
-    
-            if (response.ok) {
-                alert('Pago registrado correctamente');
-                closePaymentPopup();  // Cerrar el pop-up al enviar los datos correctamente
-            } else {
-                console.error('Error al registrar el pago:', response.statusText);
-                alert('Ocurrió un error al registrar el pago.');
-            }
-        } catch (error) {
-            console.error('Error al registrar el pago:', error);
-            alert('Error al registrar el pago.');
-        }
+        submitPayment(); // Llamada a la función de envío de pago
     });
 
     // Función para filtrar clientes conforme se escribe en el buscador

@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             console.log('Respuesta del servidor:', data);
-            alert(data);
+            alert(data.message);
             formulario.reset();
             membresiaSelect.innerHTML = '<option value="" disabled selected>Selecciona una membresía</option>';
             cargarMembresias();
