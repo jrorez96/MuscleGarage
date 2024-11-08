@@ -38,6 +38,7 @@ async function submitPayment() {
         if (response.ok) {
             console.log('Pago enviado correctamente');
             closePaymentPopup();
+            window.location.href = 'index.html'; // Redirección al index.html
         } else {
             console.error('Error al enviar el pago');
         }
@@ -70,7 +71,8 @@ async function deleteClient(cedula) {
 
         // Actualizar la lista de clientes y renderizar nuevamente
         clients = clients.filter(client => client.cedula !== cedula);
-        renderClients();
+        window.location.href = 'index.html'; // Redirección al index.html
+        //renderClients();
 
     } catch (error) {
         console.error('Error al eliminar el cliente:', error);
@@ -134,7 +136,7 @@ document.getElementById('edit-client-form').addEventListener('submit', async fun
         if (response.ok) {
             console.log('Cliente actualizado correctamente');
             closeEditClientPopup();
-            loadClients();  // Recargar la lista de clientes
+            window.location.href = 'index.html'; // Redirección al index.html
         } else {
             console.error('Error al actualizar el cliente');
         }

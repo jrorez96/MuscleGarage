@@ -64,8 +64,8 @@ function showClientInfo(cliente) {
         actionButton.textContent = 'Registrar Visita';
         actionButton.addEventListener('click', () => registerVisit(cliente.cedula));
     } else if (cliente.estado === 'VENCIDO') {
-        actionButton.textContent = 'Pagar';
-        actionButton.addEventListener('click', () => payMembership(cliente.cedula));
+        actionButton.textContent = 'Registrar Visita';
+        actionButton.addEventListener('click', () => registerVisit(cliente.cedula));
     }
 
     clientInfo.appendChild(actionButton);
@@ -106,9 +106,10 @@ async function registerVisit(cedula) {
             body: JSON.stringify(data)
         });
         const result = await response.json();
-        console.log('Visita registrada exitosamente:', result);
+        alert(result.message);
+        window.location.href = 'registar-visita.html';
     } catch (error) {
-        console.error('Error al registrar la visita:', error);
+        alert(result.message);
     }
 }
 

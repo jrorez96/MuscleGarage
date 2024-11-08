@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formulario.reset();
             membresiaSelect.innerHTML = '<option value="" disabled selected>Selecciona una membresía</option>';
             cargarMembresias();
+            window.location.href = 'index.html'; // Redirección al index.html
         })
         .catch(error => {
             console.error('Error al agregar el cliente:', error);

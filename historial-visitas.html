@@ -65,8 +65,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Nombre</th> 
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Membresia</th> 
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha Visita</th> 
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Usuario</th> 
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Acciones</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Usuario</th>
                     </tr>
                 </thead>
                 <tbody id="pago-list" class="divide-y divide-gray-200">
@@ -114,9 +113,6 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.membresia}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.fechaVisita}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.usuario}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    <button class="bg-blue-500 text-white px-3 py-1 rounded">Ver</button>
-                                </td>
                             `;
                             tbody.appendChild(row);
                         });
