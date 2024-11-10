@@ -78,6 +78,15 @@
             <script>
                 let datosConsultados = []; // Variable para almacenar los datos consultados
 
+                    function formatDate(dateString) {
+                    const date = new Date(dateString);
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+                
+                    return `${day}/${month}/${year}`;
+                }  
+
                 async function consultarDatos() {
                     const cedula = document.getElementById("cedula").value || "0";
                     const fechaInicio = document.getElementById("fechaInicio").value;
@@ -88,7 +97,7 @@
                         return;
                     }
 
-                    const url = `https://www.musclegarage.somee.com/Visita/reporteVisitas?cedula=${cedula}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+                    const url = `https://localhost:7069/Visita/reporteVisitas?cedula=${cedula}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
 
                     try {
                         const response = await fetch(url, {
@@ -107,11 +116,12 @@
                         tbody.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
 
                         data.forEach(item => {
+                            const fechaInicioC = item.fechaVisita ? formatDate(item.fechaVisita) : 'Sin fecha';
                             const row = document.createElement("tr");
                             row.innerHTML = `
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.nombreCliente}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.membresia}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.fechaVisita}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${fechaInicioC}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.usuario}</td>
                             `;
                             tbody.appendChild(row);
