@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchProductInput = document.getElementById('search-product');
     const apiUrl = 'https://www.musclegarage.somee.com/Productos';  // URL del API
     let products = [];
-    const productPerPage = 10;  // Número de productos por página
+    const productPerPage = 20;  // Número de productos por página
     let currentPage = 1;
 
     // Llamado al API para consultar los productos
