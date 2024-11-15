@@ -1,4 +1,5 @@
 const apiUrl = 'https://www.musclegarage.somee.com/Clientes';
+const apiMembershipsUrl = 'https://www.musclegarage.somee.com/Membresias'; // URL del API para obtener membresías
 let clients = [];  // Aquí se almacenarán los clientes
 
 // Función para abrir el pop-up de pago
@@ -14,31 +15,24 @@ async function submitPayment() {
     const cedula = document.getElementById('payment-cedula').value;
     const FechaDePago = document.getElementById('payment-date').value;
 
-    // Depuración: Verifica el valor de la fecha antes de enviar
-    console.log("Fecha de pago:", FechaDePago);
     if (!FechaDePago) {
         alert("Por favor ingresa una fecha de pago.");
         return;
     }
 
-    const apiPaymentUrl = `https://www.musclegarage.somee.com/Pagos`;  // Ajusta la URL según tu API
-    const paymentData = {
-        cedula: cedula,
-        FechaDePago: FechaDePago,
-    };
+    const apiPaymentUrl = `https://www.musclegarage.somee.com/Pagos`;
+    const paymentData = { cedula, FechaDePago };
 
     try {
         const response = await fetch(apiPaymentUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(paymentData),
         });
         if (response.ok) {
             console.log('Pago enviado correctamente');
             closePaymentPopup();
-            window.location.href = 'index.html'; // Redirección al index.html
+            window.location.href = 'index.html';
         } else {
             console.error('Error al enviar el pago');
         }
@@ -57,42 +51,53 @@ function closePaymentPopup() {
 async function deleteClient(cedula) {
     const apiDeleteUrl = `${apiUrl}/${cedula}`;
     try {
-        const response = await fetch(apiDeleteUrl, {
-            method: 'DELETE',
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la eliminación del cliente');
-        }
-
-        // Suponiendo que el API devuelve un mensaje en formato JSON
+        const response = await fetch(apiDeleteUrl, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Error en la eliminación del cliente');
+        
         const data = await response.json();
-        alert(data.message);  // Muestra el mensaje de éxito del servidor
-
-        // Actualizar la lista de clientes y renderizar nuevamente
+        alert(data.message);
         clients = clients.filter(client => client.cedula !== cedula);
-        window.location.href = 'index.html'; // Redirección al index.html
-        //renderClients();
-
+        window.location.href = 'index.html';
     } catch (error) {
         console.error('Error al eliminar el cliente:', error);
         alert('Error al eliminar el cliente: ' + error.message);
     }
 }
 
-
 // Función para abrir el pop-up de edición de cliente
-function openEditClientPopup(cedula) {
-    const client = clients.find(c => c.cedula === cedula);  // Buscar el cliente por su cédula
+async function openEditClientPopup(cedula) {
+    const client = clients.find(c => c.cedula === cedula);
     if (client) {
         const editPopup = document.getElementById('edit-client-popup');
         document.getElementById('edit-cedula').value = client.cedula;
         document.getElementById('edit-nombre').value = client.nombre;
         document.getElementById('edit-telefono').value = client.telefono;
         document.getElementById('edit-correo').value = client.correo;
-        document.getElementById('edit-membresia').value = client.membresia;  // Asignar la membresía
-        document.getElementById('edit-fecha-inicio').value = new Date(client.fechaInicio).toISOString().split('T')[0];  // Asignar la fecha de inicio
-        editPopup.style.display = 'block'; // Mostrar el pop-up
+        document.getElementById('edit-fecha-inicio').value = new Date(client.fechaInicio).toISOString().split('T')[0];
+
+        try {
+            // Llamada al API para obtener las membresías
+            const response = await fetch(apiMembershipsUrl);
+            const memberships = await response.json();
+
+            const membershipSelect = document.getElementById('edit-membresia');
+            membershipSelect.innerHTML = ''; // Limpiar opciones previas
+
+            // Agregar cada membresía al select
+            memberships.forEach(membership => {
+                const option = document.createElement('option');
+                option.value = membership.nombre; // Usamos el nombre como valor
+                option.textContent = membership.nombre;
+                if (membership.nombre === client.membresia) { // Comparación con la membresía actual
+                    option.selected = true;
+                }
+                membershipSelect.appendChild(option);
+            });
+
+            editPopup.style.display = 'block';
+        } catch (error) {
+            console.error('Error al obtener las membresías:', error);
+        }
     } else {
         console.error('Cliente no encontrado');
     }
@@ -101,7 +106,7 @@ function openEditClientPopup(cedula) {
 // Función para cerrar el pop-up de edición
 function closeEditClientPopup() {
     const editPopup = document.getElementById('edit-client-popup');
-    editPopup.style.display = 'none'; // Ocultar el pop-up
+    editPopup.style.display = 'none';
 }
 
 // Función para guardar los cambios del formulario de edición
@@ -115,28 +120,19 @@ document.getElementById('edit-client-form').addEventListener('submit', async fun
     const membresia = document.getElementById('edit-membresia').value;
     const fechaInicio = document.getElementById('edit-fecha-inicio').value;
 
-    const updatedClient = {
-        cedula,
-        nombre,
-        telefono,
-        correo,
-        membresia,
-        fechaInicio
-    };
+    const updatedClient = { cedula, nombre, telefono, correo, membresia, fechaInicio };
 
     try {
         const response = await fetch(`${apiUrl}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedClient),
         });
 
         if (response.ok) {
             console.log('Cliente actualizado correctamente');
             closeEditClientPopup();
-            window.location.href = 'index.html'; // Redirección al index.html
+            window.location.href = 'index.html';
         } else {
             console.error('Error al actualizar el cliente');
         }
@@ -149,10 +145,9 @@ document.getElementById('edit-client-form').addEventListener('submit', async fun
 document.addEventListener('DOMContentLoaded', () => {
     const clientList = document.getElementById('client-list');
     const searchClientInput = document.getElementById('search-client');
-    const clientsPerPage = 10;  // Número de clientes por página
+    const clientsPerPage = 10;
     let currentPage = 1;
 
-    // Función para hacer la consulta al API
     async function fetchClients() {
         try {
             const response = await fetch(apiUrl);
@@ -171,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${day}/${month}/${year}`;
     }
 
-    // Función para mostrar los clientes en la página actual
     function renderClients() {
         const start = (currentPage - 1) * clientsPerPage;
         const end = start + clientsPerPage;
@@ -183,17 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         const paginatedClients = filteredClients.slice(start, end);
-
-        // Limpiar la lista de clientes antes de renderizar
         clientList.innerHTML = '';
 
-        // Renderizar cada cliente en la tabla
         paginatedClients.forEach(client => {
             const fechaInicioC = client.fechaInicio ? formatDate(client.fechaInicio) : 'Sin fecha';
             const fechaFinC = client.fechaFin ? formatDate(client.fechaFin) : 'Sin fecha';
             const tr = document.createElement('tr');
 
-            // Insertar los datos del cliente en la tabla
             tr.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">${client.cedula}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${client.nombre}</td>
@@ -210,25 +200,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const buttonContainer = tr.lastElementChild;
 
-            // Botón Editar
             const editButton = document.createElement('button');
             editButton.classList.add('bg-yellow-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-yellow-700');
             editButton.textContent = 'Editar';
             editButton.addEventListener('click', () => openEditClientPopup(client.cedula));
 
-            // Botón Eliminar
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-red-700');
             deleteButton.textContent = 'Eliminar';
             deleteButton.addEventListener('click', () => deleteClient(client.cedula));
 
-            // Botón Pagar
             const paymentButton = document.createElement('button');
             paymentButton.classList.add('bg-green-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-green-700');
             paymentButton.textContent = 'Pagar';
             paymentButton.addEventListener('click', () => openPaymentPopup(client.cedula));
 
-            // Agregar botones al contenedor
             buttonContainer.appendChild(editButton);
             buttonContainer.appendChild(deleteButton);
             buttonContainer.appendChild(paymentButton);
@@ -236,21 +222,18 @@ document.addEventListener('DOMContentLoaded', () => {
             clientList.appendChild(tr);
         });
 
-        // Opcional: Crear controles de paginación
         createPagination(filteredClients.length);
     }
 
-    // Función para aplicar estilos según el estado
     function getStatusStyle(status) {
         if (status === 'ACTIVO') {
             return 'bg-green-100 text-green-800 px-2 py-1 rounded-full';
         } else if (status === 'VENCIDO') {
             return 'bg-red-100 text-red-800 px-2 py-1 rounded-full';
         }
-        return 'bg-gray-100 text-gray-800 px-2 py-1 rounded-full';  // Estado por defecto
+        return 'bg-gray-100 text-gray-800 px-2 py-1 rounded-full';
     }
 
-    // Función para crear los controles de paginación
     function createPagination(totalClients) {
         const totalPages = Math.ceil(totalClients / clientsPerPage);
         const paginationContainer = document.getElementById('pagination');
@@ -275,16 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('payment-form').addEventListener('submit', async function(event) {
-        event.preventDefault();  // Prevenir el comportamiento por defecto del formulario
-        submitPayment(); // Llamada a la función de envío de pago
+        event.preventDefault();
+        submitPayment();
     });
 
-    // Función para filtrar clientes conforme se escribe en el buscador
     searchClientInput.addEventListener('input', () => {
-        currentPage = 1;  // Reiniciar a la primera página al buscar
+        currentPage = 1;
         renderClients();
     });
 
-    // Llamar a la función para obtener los clientes cuando la página carga
     fetchClients();
 });

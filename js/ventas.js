@@ -60,5 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Venta registrada exitosamente');
         })
         .catch(error => console.error('Error al agregar la venta:', error));
+        window.location.href = 'listaVentaProducto.html'; // Redirección al index.html
     });
 });
