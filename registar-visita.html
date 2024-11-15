@@ -9,7 +9,7 @@
 <body class="min-h-100 bg-gray-200">
     <div class="md:flex min-h-screen md:align-top">
         <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
-            <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Dashboard</h1>
+            <h1 class="uppercase text-white tracking-wide text-2xl font-bold mt-2">Dashboard</h1>
             <nav class="mt-8">
                 <a href="registar-visita.html" class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Registrar Visita</a>
                 <a href="index.html" class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Clientes</a>
@@ -17,6 +17,7 @@
                 <a href="historial-visitas.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Historial de Visitas</a>
                 <a href="listaVentaProducto.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Lista Venta Producto</a>
                 <a href="listaProductos.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Productos</a>
+                <a href="listaMembresia.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Membresias</a>
                 <a href="registrarVenta.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Registrar venta</a>
                 <a href="usuarios.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Usuarios</a>
                 <a href="login.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Salir</a>
@@ -34,6 +35,40 @@
                     class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
             </div>
+
+            <!-- Botón Registrar Sesión Diaria -->
+            <div class="flex justify-start mt-4">
+                <button id="openSessionModal" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded mt-4">Registrar Sesión Diaria</button>
+            </div>
+
+            <!-- Modal Form -->
+            <div id="sessionModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+                <h3 class="text-lg font-semibold mb-4">Registrar Sesión Diaria</h3>
+                <form id="sessionForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                        <input type="text" id="name" name="name" required class="mt-1 p-2 border border-gray-300 rounded w-full">
+                    </div>
+                    
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Fecha:</label>
+                        <input type="date" id="date" name="date" required class="mt-1 p-2 border border-gray-300 rounded w-full">
+                    </div>
+                    
+                    <div>
+                        <label for="amount" class="block text-sm font-medium text-gray-700">Monto:</label>
+                        <input type="number" id="amount" name="amount" required class="mt-1 p-2 border border-gray-300 rounded w-full">
+                    </div>
+                    
+                    <div class="flex justify-end space-x-2 mt-4">
+                        <button type="button" id="addSession" class="bg-green-500 text-white py-2 px-4 rounded">Agregar</button>
+                        <button type="button" id="cancelSession" class="bg-red-500 text-white py-2 px-4 rounded">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Overlay -->
+            <div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
 
             <!-- Lista de resultados -->
             <div id="client-list" class="bg-white shadow-md rounded p-5 hidden">

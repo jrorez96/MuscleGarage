@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const tipoPago = document.getElementById('tipoPago').value;
         const cantidad = document.getElementById('cantidad').value;
         const precio = document.getElementById('precio').value;
+        const fecha = document.getElementById('fecha').value;
 
         if (!producto || !tipoPago || !cantidad || !precio) {
             alert('Todos los campos son obligatorios');
@@ -43,7 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
             nombre,
             tipoPago,
             cantidad,
-            precio
+            precio,
+            fecha
         };
 
         console.log(JSON.stringify(ventaData)); // Verificar qué se está enviando

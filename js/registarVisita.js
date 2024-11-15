@@ -107,7 +107,7 @@ async function registerVisit(cedula) {
         });
         const result = await response.json();
         alert(result.message);
-        window.location.href = 'registar-visita.html';
+        window.location.href = 'registar-visita.html'; // Redirección al visitas
     } catch (error) {
         alert(result.message);
     }
@@ -143,3 +143,58 @@ closeModal.addEventListener('click', function() {
 
 // Llamar a la función para obtener los clientes cuando la página carga
 fetchClients();
+
+
+
+// Modal handling
+document.getElementById('openSessionModal').addEventListener('click', function () {
+    document.getElementById('sessionModal').style.display = 'block';
+    document.getElementById('modalOverlay').style.display = 'block';
+});
+
+document.getElementById('cancelSession').addEventListener('click', function () {
+    document.getElementById('sessionModal').style.display = 'none';
+    document.getElementById('modalOverlay').style.display = 'none';
+});
+
+// API call on Add button click
+document.getElementById('addSession').addEventListener('click', function () {
+    const nombre = document.getElementById('name').value;
+    const fecha = document.getElementById('date').value;
+    const monto = document.getElementById('amount').value;
+
+    if (nombre && fecha && monto) {
+        fetch('https://www.musclegarage.somee.com/Visita/registrarVisitaDiaria', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nombre, fecha, monto }),
+        })
+        .then(response => {
+            // Check if response is JSON
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                return response.text();
+            }
+        })
+        .then(data => {
+            // Check if data is JSON or plain text
+            if (typeof data === "object") {
+                alert('Sesión registrada exitosamente');
+            } else {
+                alert(data); // Show text response
+            }
+            document.getElementById('sessionModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al registrar la sesión.');
+        });
+    } else {
+        alert('Por favor, complete todos los campos.');
+    }
+});

@@ -20,6 +20,7 @@ async function fetchSalesData() {
                     <td class="px-6 py-4 whitespace-nowrap">${item.tipoPago}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${item.cantidad}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${item.monto}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${item.fecha}</td>
                 `;
                 productList.appendChild(row);
             });
@@ -31,6 +32,7 @@ async function fetchSalesData() {
                 <td class="px-6 py-4 whitespace-nowrap">${data.tipoPago}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${data.cantidad}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${data.monto}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${data.fecha}</td>
             `;
             productList.appendChild(row);
         }

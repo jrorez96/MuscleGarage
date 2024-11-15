@@ -25,30 +25,32 @@
         </aside> <!--sidebar-->
 
         <main class="flex-1 px-5 py-10 bg-gray-200">
-            <h2 class="text-3xl font-light text-center mb-5">Clientes</h2>
+            <h2 class="text-3xl font-light text-center mb-5">Membresias</h2>
 
             <!-- Buscador de clientes -->
             <div class="flex justify-between items-center mb-5">
-                <input id="search-client" type="text" placeholder="Buscar cliente..." class="appearance-none border rounded py-2 px-3 text-gray-700" />
-                <a href="nuevo-cliente.html" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Agregar Cliente</a>
+                <input
+                    id="search-product"
+                    type="text"
+                    placeholder="Buscar membresia..."
+                    class="appearance-none border rounded py-2 px-3 text-gray-700"
+                />
+                <button id="add-product-btn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                    Agregar membresia
+                </button>
             </div>
 
             <!-- Tabla de clientes -->
             <table class="min-w-full bg-white rounded shadow-md">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Cédula</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Teléfono</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Correo</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Membresía</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha de Inicio</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha Fin</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Estado</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Duracion</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Precio</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="client-list" class="divide-y divide-gray-200">
+                <tbody id="product-list" class="divide-y divide-gray-200">
                     <!-- Clientes dinámicos aquí -->
                 </tbody>
             </table>
@@ -79,47 +81,7 @@
         </div>
     </div>
 
-    <!-- Formulario emergente de edición de cliente -->
-    <div id="edit-client-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded shadow-md">
-            <h2 class="text-lg font-bold mb-4">Editar Cliente</h2>
-            <form id="edit-client-form">
-                <div class="mb-4">
-                    <label for="edit-cedula" class="block text-gray-700">Cédula:</label>
-                    <input type="text" id="edit-cedula" name="cedula" class="border rounded w-full py-2 px-3" readonly>
-                </div>
-                <div class="mb-4">
-                    <label for="edit-nombre" class="block text-gray-700">Nombre:</label>
-                    <input type="text" id="edit-nombre" name="nombre" class="border rounded w-full py-2 px-3" required>
-                </div>
-                <div class="mb-4">
-                    <label for="edit-telefono" class="block text-gray-700">Teléfono:</label>
-                    <input type="text" id="edit-telefono" name="telefono" class="border rounded w-full py-2 px-3" required>
-                </div>
-                <div class="mb-4">
-                    <label for="edit-correo" class="block text-gray-700">Correo:</label>
-                    <input type="email" id="edit-correo" name="correo" class="border rounded w-full py-2 px-3" required>
-                </div>
-                <!-- Nuevo campo de Membresía -->
-            <div class="mb-4">
-                <label for="edit-membresia" class="block text-gray-700">Membresía:</label>
-                <select id="edit-membresia" name="membresia" class="border rounded w-full py-2 px-3">
-                    <!-- Opciones serán añadidas dinámicamente -->
-                </select>
-            </div>
-            <!-- Nuevo campo de Fecha de Inicio -->
-            <div class="mb-4">
-                <label for="edit-fecha-inicio" class="block text-gray-700">Fecha de Inicio:</label>
-                <input type="date" id="edit-fecha-inicio" name="fecha_inicio" class="border rounded w-full py-2 px-3" required>
-            </div>
-                <div class="flex justify-end">
-                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded mr-2" onclick="closeEditClientPopup()">Cancelar</button>
-                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <script src="js/listaCliente.js"></script>
+    <script src="js/listaMembresias.js"></script>
 </body>
 </html>
