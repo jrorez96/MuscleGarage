@@ -59,25 +59,31 @@
     </div>
 
     <!-- Formulario emergente de pago -->
-    <div id="payment-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded shadow-md">
-            <h2 class="text-lg font-bold mb-4">Registrar Pago</h2>
-            <form id="payment-form">
-                <div class="mb-4">
-                    <label for="payment-cedula" class="block text-gray-700">Cédula:</label>
-                    <input type="text" id="payment-cedula" name="cedula" class="border rounded w-full py-2 px-3" readonly>
-                </div>
-                <div class="mb-4">
-                    <label for="payment-date" class="block text-gray-700">Fecha de pago:</label>
-                    <input type="date" id="payment-date" name="fecha_pago" class="border rounded w-full py-2 px-3">
-                </div>
-                <div class="flex justify-end">
-                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded mr-2" onclick="closePaymentPopup()">Cancelar</button>
-                    <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Enviar</button>
-                </div>
-            </form>
-        </div>
+<div id="payment-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded shadow-md">
+        <h2 class="text-lg font-bold mb-4">Registrar Pago</h2>
+        <form id="payment-form">
+            <div class="mb-4">
+                <label for="payment-cedula" class="block text-gray-700">Cédula:</label>
+                <input type="text" id="payment-cedula" name="cedula" class="border rounded w-full py-2 px-3" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="payment-membresia" class="block text-gray-700">Membresía:</label>
+                <select id="payment-membresia" name="membresia" class="border rounded w-full py-2 px-3">
+                    <!-- Opciones serán añadidas dinámicamente -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="payment-date" class="block text-gray-700">Fecha de pago:</label>
+                <input type="date" id="payment-date" name="fecha_pago" class="border rounded w-full py-2 px-3">
+            </div>
+            <div class="flex justify-end">
+                <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded mr-2" onclick="closePaymentPopup()">Cancelar</button>
+                <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Enviar</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <!-- Formulario emergente de edición de cliente -->
     <div id="edit-client-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">

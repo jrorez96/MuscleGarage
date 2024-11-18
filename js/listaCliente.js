@@ -3,17 +3,48 @@ const apiMembershipsUrl = 'https://www.musclegarage.somee.com/Membresias'; // UR
 let clients = [];  // Aquí se almacenarán los clientes
 
 // Función para abrir el pop-up de pago
-function openPaymentPopup(cedula) {
+async function openPaymentPopup(cedula) {
     const paymentPopup = document.getElementById('payment-popup');
     const paymentFormCedula = document.getElementById('payment-cedula');
+    const paymentMembershipSelect = document.getElementById('payment-membresia');
     paymentFormCedula.value = cedula;
-    paymentPopup.style.display = 'block'; // Mostrar el pop-up
+
+    try {
+        // Obtener datos del cliente seleccionado
+        const client = clients.find(c => c.cedula === cedula);
+        if (!client) {
+            alert('Cliente no encontrado.');
+            return;
+        }
+
+        // Obtener las membresías desde el API
+        const response = await fetch(apiMembershipsUrl);
+        const memberships = await response.json();
+
+        // Limpiar opciones previas y agregar nuevas
+        paymentMembershipSelect.innerHTML = '';
+        memberships.forEach(membership => {
+            const option = document.createElement('option');
+            option.value = membership.nombre;
+            option.textContent = membership.nombre;
+            if (membership.nombre === client.membresia) {
+                option.selected = true; // Seleccionar la membresía actual
+            }
+            paymentMembershipSelect.appendChild(option);
+        });
+
+        paymentPopup.style.display = 'block'; // Mostrar el pop-up
+    } catch (error) {
+        console.error('Error al obtener las membresías:', error);
+        alert('No se pudieron cargar las membresías.');
+    }
 }
 
 // Función para enviar el pago
 async function submitPayment() {
     const cedula = document.getElementById('payment-cedula').value;
     const FechaDePago = document.getElementById('payment-date').value;
+    const Membresia = document.getElementById('payment-membresia').value;
 
     if (!FechaDePago) {
         alert("Por favor ingresa una fecha de pago.");
@@ -21,7 +52,7 @@ async function submitPayment() {
     }
 
     const apiPaymentUrl = `https://www.musclegarage.somee.com/Pagos`;
-    const paymentData = { cedula, FechaDePago };
+    const paymentData = { cedula, FechaDePago, Membresia };
 
     try {
         const response = await fetch(apiPaymentUrl, {
