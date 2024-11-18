@@ -50,12 +50,14 @@ function displayClients(clientes) {
 
 // Mostrar la información del cliente en el modal con botones según el estado
 function showClientInfo(cliente) {
+    const estadoColorClass = cliente.estado === 'ACTIVO' ? 'text-green-500' : 'text-red-500';
+
     clientInfo.innerHTML = `
         <p>Nombre: ${cliente.nombre}</p>
         <p>Membresía: ${cliente.membresia}</p>
-        <p>Estado: ${cliente.estado}</p>
+        <p class="${estadoColorClass}">Estado: ${cliente.estado}</p>
     `;
-    
+
     // Botones dinámicos según el estado
     const actionButton = document.createElement('button');
     actionButton.classList.add('bg-blue-500', 'text-white', 'py-2', 'px-4', 'rounded', 'mt-4');
