@@ -18,7 +18,7 @@ async function openPaymentPopup(cedula) {
         }
 
         // Obtener las membresías desde el API
-        const response = await fetch(apiMembershipsUrl);
+        const response = await fetch(apiMembershipsUrl); 
         const memberships = await response.json();
 
         // Limpiar opciones previas y agregar nuevas
