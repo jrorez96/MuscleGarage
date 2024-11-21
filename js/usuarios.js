@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const apiUrl = 'https://www.musclegarage.somee.com/Usuarios'; // URL de tu API
     let users = [];
     let selectedUser = null;
 
+    // Referencias al DOM
     const searchInput = document.getElementById('searchInput');
     const usersTable = document.getElementById('usersTable');
     const editPopup = document.getElementById('editPopup');
@@ -12,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const editPassword = document.getElementById('editPassword');
     const saveBtn = document.getElementById('saveBtn');
     const cancelBtn = document.getElementById('cancelBtn');
+
+    // Nuevo: Referencias para "Agregar Usuario"
+    const addUserBtn = document.getElementById('addUserBtn');
+    const addPopup = document.getElementById('addPopup');
+    const addName = document.getElementById('addName');
+    const addUser = document.getElementById('addUser');
+    const addPassword = document.getElementById('addPassword');
+    const addSaveBtn = document.getElementById('addSaveBtn');
+    const addCancelBtn = document.getElementById('addCancelBtn');
 
     // Cargar usuarios desde la API
     async function loadUsers() {
@@ -31,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = document.createElement('tr');
             row.classList.add('border-b');
             row.innerHTML = `
-                <td class="p-2">${user.nombre}</td>
                 <td class="p-2">${user.usuario}</td>
+                <td class="p-2">${user.nombre}</td>
                 <td class="p-2">${user.password}</td>
                 <td class="p-2">
                     <button class="bg-yellow-500 text-white px-2 py-1 rounded editBtn" data-name="${user.nombre}">Editar</button>
@@ -42,24 +52,24 @@ document.addEventListener('DOMContentLoaded', function() {
             usersTable.appendChild(row);
         });
 
-        // Agregar eventos a los botones de editar y eliminar
+        // Eventos para editar y eliminar
         document.querySelectorAll('.editBtn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const userName = this.getAttribute('data-name');
                 openEditPopup(userName);
             });
         });
 
         document.querySelectorAll('.deleteBtn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const userName = this.getAttribute('data-name');
                 deleteUser(userName);
             });
         });
     }
 
-    // Búsqueda de usuarios por nombre
-    searchInput.addEventListener('input', function() {
+    // Búsqueda de usuarios
+    searchInput.addEventListener('input', function () {
         const searchTerm = searchInput.value.toLowerCase();
         const filteredUsers = users.filter(user => user.nombre.toLowerCase().includes(searchTerm));
         renderUsers(filteredUsers);
@@ -76,36 +86,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Cerrar el pop-up de edición
-    cancelBtn.addEventListener('click', function() {
+    // Cerrar pop-up de edición
+    cancelBtn.addEventListener('click', function () {
         editPopup.classList.add('hidden');
     });
 
-    // Guardar cambios y llamar al API de edición
-    saveBtn.addEventListener('click', async function() {
+    // Guardar cambios de edición
+    saveBtn.addEventListener('click', async function () {
         const updatedUser = {
             usuario: editUser.value,
             nombre: editName.value,
-            password: editPassword.value
+            password: editPassword.value,
         };
 
         try {
-            const response = await fetch(`${apiUrl}/${selectedUser.nombre}`, {
+            const response = await fetch(apiUrl, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedUser)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedUser),
             });
 
             if (response.ok) {
-                // Actualizar la lista de usuarios localmente
-                const index = users.findIndex(user => user.nombre === selectedUser.nombre);
-                users[index] = updatedUser;
-                renderUsers(users);
-                editPopup.classList.add('hidden');
+                window.location.reload();
             } else {
                 console.error('Error al actualizar el usuario');
+                window.location.reload();
             }
         } catch (error) {
             console.error('Error al guardar los cambios:', error);
@@ -113,24 +118,59 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Eliminar usuario
-    async function deleteUser(userName) {
+    async function deleteUser(name) {
         try {
-            const response = await fetch(`${apiUrl}/${userName}`, {
-                method: 'DELETE'
-            });
+            const response = await fetch(`${apiUrl}/${name}`, { method: 'DELETE' });
 
             if (response.ok) {
-                // Eliminar el usuario de la lista localmente
-                users = users.filter(user => user.nombre !== userName);
+                users = users.filter(user => user.nombre !== name);
                 renderUsers(users);
             } else {
                 console.error('Error al eliminar el usuario');
+                window.location.reload();
             }
         } catch (error) {
             console.error('Error al eliminar el usuario:', error);
         }
     }
 
-    // Cargar los usuarios al iniciar
+    // Nuevo: Abrir pop-up de "Agregar Usuario"
+    addUserBtn.addEventListener('click', function () {
+        addPopup.classList.remove('hidden');
+    });
+
+    // Nuevo: Cerrar pop-up de "Agregar Usuario"
+    addCancelBtn.addEventListener('click', function () {
+        addPopup.classList.add('hidden');
+    });
+
+    // Nuevo: Guardar usuario nuevo
+    addSaveBtn.addEventListener('click', async function () {
+        const newUser = {
+            usuario: addUser.value,
+            nombre: addUserName.value,
+            password: addPassword.value,
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newUser),
+            });
+
+            if (response.ok) {
+                addPopup.classList.add('hidden');
+                loadUsers();
+            } else {
+                console.error('Error al agregar el usuario');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error al guardar el usuario:', error);
+        }
+    });
+
+    // Cargar usuarios al iniciar
     loadUsers();
 });
