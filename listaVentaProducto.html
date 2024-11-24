@@ -8,35 +8,8 @@
     </head>
     <body class="min-h-100 bg-gray-200">
         <div class="md:flex min-h-screen">
-            <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
-                <h1
-                    class="uppercase text-white tracking-wide text-2xl font-bold mt-2">Dashboard</h1>
-                <nav class="mt-8">
-                    <a href="registar-visita.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Registrar
-                        Visita</a>
-                    <a href="index.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Clientes</a>
-                    <a href="historial-pagos.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Historial
-                        de Pagos</a>
-                    <a href="historial-visitas.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Historial
-                        de Visitas</a>
-                    <a href="listaVentaProducto.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Lista
-                        Venta Producto</a>
-                    <a href="listaProductos.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Productos</a>
-                    <a href="registrarVenta.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Registrar
-                        venta</a>
-                    <a href="usuarios.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Usuarios</a>
-                    <a href="login.html"
-                        class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Salir</a>
-                </nav>
-            </aside>
+            <div class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10"
+                id="menu-container"></div>
 
             <main class="flex-1 px-5 py-10 bg-gray-200">
                 <h2 class="text-3xl font-light text-center mb-5">Ventas de
@@ -99,6 +72,8 @@
                         <!-- Pagos dinámicos se mostrarán aquí -->
                     </tbody>
                 </table>
+
+                <script src="js/menu.js"></script>
 
                 <!-- Incluir librerías y archivos de JavaScript -->
                 <script

@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Nuevo: Referencias para "Agregar Usuario"
     const addUserBtn = document.getElementById('addUserBtn');
     const addPopup = document.getElementById('addPopup');
-    const addName = document.getElementById('addName');
+    const addUserName = document.getElementById('addUserName');
     const addUser = document.getElementById('addUser');
     const addPassword = document.getElementById('addPassword');
     const addSaveBtn = document.getElementById('addSaveBtn');
     const addCancelBtn = document.getElementById('addCancelBtn');
+    const errorMsg = document.getElementById('errorMsg'); // Mensaje de error para validación
 
     // Cargar usuarios desde la API
     async function loadUsers() {
@@ -134,6 +135,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Validar campos vacíos antes de agregar un usuario
+    function validateFields() {
+        if (!addUserName.value.trim() || !addUser.value.trim() || !addPassword.value.trim()) {
+            errorMsg.classList.remove('hidden'); // Mostrar mensaje de error
+            return false;
+        }
+        errorMsg.classList.add('hidden'); // Ocultar mensaje de error si todo está correcto
+        return true;
+    }
+
     // Nuevo: Abrir pop-up de "Agregar Usuario"
     addUserBtn.addEventListener('click', function () {
         addPopup.classList.remove('hidden');
@@ -142,10 +153,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Nuevo: Cerrar pop-up de "Agregar Usuario"
     addCancelBtn.addEventListener('click', function () {
         addPopup.classList.add('hidden');
+        errorMsg.classList.add('hidden'); // Ocultar mensaje de error al cerrar
     });
 
     // Nuevo: Guardar usuario nuevo
     addSaveBtn.addEventListener('click', async function () {
+        if (!validateFields()) {
+            return; // No continuar si hay campos vacíos
+        }
         const newUser = {
             usuario: addUser.value,
             nombre: addUserName.value,

@@ -1,95 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM - IndexedDB</title>
-    <link rel="stylesheet" href="css/tailwind.min.css">
-</head>
-<body class="min-h-100 bg-gray-200">
-    <div class="md:flex min-h-screen md:align-top">
-        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
-            <h1 class="uppercase text-white tracking-wide text-2xl font-bold mt-2">Dashboard</h1>
-            <nav class="mt-8">
-                <a href="registar-visita.html" class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Registrar Visita</a>
-                <a href="index.html" class="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700">Clientes</a>
-                <a href="historial-pagos.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Historial de Pagos</a>
-                <a href="historial-visitas.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Historial de Visitas</a>
-                <a href="listaVentaProducto.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Lista Venta Producto</a>
-                <a href="listaProductos.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Productos</a>
-                <a href="listaMembresia.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Membresias</a>
-                <a href="registrarVenta.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Registrar venta</a>
-                <a href="usuarios.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Usuarios</a>
-                <a href="login.html" class="px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400">Salir</a>
-            </nav>
-        </aside> <!--sidebar-->
-        <main class="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
-            <h2 class="text-3xl font-light text-center mb-5">Registrar Visitas</h2>
-            
-            <!-- Buscador de clientes -->
-            <div class="mb-5">
-                <input
-                    id="search-client"
-                    type="text"
-                    placeholder="Buscar cliente..."
-                    class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CRM - IndexedDB</title>
+        <link rel="stylesheet" href="css/tailwind.min.css">
+    </head>
+    <body class="min-h-100 bg-gray-200">
+        <div class="md:flex min-h-screen md:align-top">
+            <div class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10"
+                id="menu-container"></div>
+            <main class="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
+                <h2 class="text-3xl font-light text-center mb-5">Registrar
+                    Visitas</h2>
 
-            <!-- Botón Registrar Sesión Diaria -->
-            <div class="flex justify-start mt-4">
-                <button id="openSessionModal" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded mt-4">Registrar Sesión Diaria</button>
-            </div>
+                <!-- Buscador de clientes -->
+                <div class="mb-5">
+                    <input
+                        id="search-client"
+                        type="text"
+                        placeholder="Buscar cliente..."
+                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
 
-            <!-- Modal Form -->
-            <div id="sessionModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
-                <h3 class="text-lg font-semibold mb-4">Registrar Sesión Diaria</h3>
-                <form id="sessionForm" class="space-y-4">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                        <input type="text" id="name" name="name" required class="mt-1 p-2 border border-gray-300 rounded w-full">
+                <!-- Botón Registrar Sesión Diaria -->
+                <div class="flex justify-start mt-4">
+                    <button id="openSessionModal"
+                        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded mt-4">Registrar
+                        Sesión Diaria</button>
+                </div>
+
+                <!-- Modal Form -->
+                <div id="sessionModal"
+                    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+                    <h3 class="text-lg font-semibold mb-4">Registrar Sesión
+                        Diaria</h3>
+                    <form id="sessionForm" class="space-y-4">
+                        <div>
+                            <label for="name"
+                                class="block text-sm font-medium text-gray-700">Nombre:</label>
+                            <input type="text" id="name" name="name" required
+                                class="mt-1 p-2 border border-gray-300 rounded w-full">
+                        </div>
+
+                        <div>
+                            <label for="date"
+                                class="block text-sm font-medium text-gray-700">Fecha:</label>
+                            <input type="date" id="date" name="date" required
+                                class="mt-1 p-2 border border-gray-300 rounded w-full">
+                        </div>
+
+                        <div>
+                            <label for="amount"
+                                class="block text-sm font-medium text-gray-700">Monto:</label>
+                            <input type="number" id="amount" name="amount"
+                                required
+                                class="mt-1 p-2 border border-gray-300 rounded w-full">
+                        </div>
+
+                        <div class="flex justify-end space-x-2 mt-4">
+                            <button type="button" id="addSession"
+                                class="bg-green-500 text-white py-2 px-4 rounded">Agregar</button>
+                            <button type="button" id="cancelSession"
+                                class="bg-red-500 text-white py-2 px-4 rounded">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Overlay -->
+                <div id="modalOverlay"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+
+                <!-- Lista de resultados -->
+                <div id="client-list"
+                    class="bg-white shadow-md rounded p-5 hidden">
+                    <ul id="resultados" class="list-none"></ul>
+                </div>
+            </main>
+
+            <div id="modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+                <div class="flex items-center justify-center min-h-screen">
+                    <div
+                        class="bg-white p-5 rounded shadow-lg max-w-md mx-auto">
+                        <h3 class="text-lg font-semibold mb-4">Información del
+                            Cliente</h3>
+                        <p id="client-info" class="text-gray-600"></p>
+
+                        <!-- Los botones se generan dinámicamente desde el JS dependiendo del estado del cliente -->
+
+                        <button id="close-modal"
+                            class="text-red-500 mt-4 ml-4">Cerrar</button>
                     </div>
-                    
-                    <div>
-                        <label for="date" class="block text-sm font-medium text-gray-700">Fecha:</label>
-                        <input type="date" id="date" name="date" required class="mt-1 p-2 border border-gray-300 rounded w-full">
-                    </div>
-                    
-                    <div>
-                        <label for="amount" class="block text-sm font-medium text-gray-700">Monto:</label>
-                        <input type="number" id="amount" name="amount" required class="mt-1 p-2 border border-gray-300 rounded w-full">
-                    </div>
-                    
-                    <div class="flex justify-end space-x-2 mt-4">
-                        <button type="button" id="addSession" class="bg-green-500 text-white py-2 px-4 rounded">Agregar</button>
-                        <button type="button" id="cancelSession" class="bg-red-500 text-white py-2 px-4 rounded">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Overlay -->
-            <div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
-
-            <!-- Lista de resultados -->
-            <div id="client-list" class="bg-white shadow-md rounded p-5 hidden">
-                <ul id="resultados" class="list-none"></ul>
-            </div>
-        </main>
-
-        <div id="modal" class="fixed z-10 inset-0 overflow-y-auto hidden">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-white p-5 rounded shadow-lg max-w-md mx-auto">
-                    <h3 class="text-lg font-semibold mb-4">Información del Cliente</h3>
-                    <p id="client-info" class="text-gray-600"></p>
-
-                    <!-- Los botones se generan dinámicamente desde el JS dependiendo del estado del cliente -->
-                    
-                    <button id="close-modal" class="text-red-500 mt-4 ml-4">Cerrar</button>
                 </div>
             </div>
+
         </div>
-        
-    </div>
-    <script src="js/registarVisita.js"></script>
-</body>
+        <script src="js/menu.js"></script>
+        <script src="js/registarVisita.js"></script>
+    </body>
 </html>
