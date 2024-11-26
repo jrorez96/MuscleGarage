@@ -2,7 +2,7 @@ const apiUrl = 'https://www.musclegarage.somee.com/Clientes';
 const apiMembershipsUrl = 'https://www.musclegarage.somee.com/Membresias'; // URL del API para obtener membresías
 let clients = [];  // Aquí se almacenarán los clientes
 
-const currentUser = localStorage.getItem('usuario'); // Ajusta esta clave según tu implementación
+const currentUser = localStorage.getItem('usuario'); // Ajusta esta clave según tu implementación 
 
 // Función para abrir el pop-up de pago
 async function openPaymentPopup(cedula) {
