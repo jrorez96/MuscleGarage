@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonContainer.appendChild(paymentButton);
 
             // Agregar botón de eliminar solo si el usuario no es "test"
-            if (currentUser !== 'Dalthon' || currentUser !== 'Jeffry') {
+            if (currentUser !== 'Dalthon' && currentUser !== 'Jeffry') {
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-red-700');
                 deleteButton.textContent = 'Eliminar';
