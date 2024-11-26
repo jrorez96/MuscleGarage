@@ -2,6 +2,8 @@ const apiUrl = 'https://www.musclegarage.somee.com/Clientes';
 const apiMembershipsUrl = 'https://www.musclegarage.somee.com/Membresias'; // URL del API para obtener membresías
 let clients = [];  // Aquí se almacenarán los clientes
 
+const currentUser = localStorage.getItem('usuario'); // Ajusta esta clave según tu implementación
+
 // Función para abrir el pop-up de pago
 async function openPaymentPopup(cedula) {
     const paymentPopup = document.getElementById('payment-popup');
@@ -18,7 +20,7 @@ async function openPaymentPopup(cedula) {
         }
 
         // Obtener las membresías desde el API
-        const response = await fetch(apiMembershipsUrl); 
+        const response = await fetch(apiMembershipsUrl);
         const memberships = await response.json();
 
         // Limpiar opciones previas y agregar nuevas
@@ -236,19 +238,22 @@ document.addEventListener('DOMContentLoaded', () => {
             editButton.textContent = 'Editar';
             editButton.addEventListener('click', () => openEditClientPopup(client.cedula));
 
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-red-700');
-            deleteButton.textContent = 'Eliminar';
-            deleteButton.addEventListener('click', () => deleteClient(client.cedula));
-
             const paymentButton = document.createElement('button');
             paymentButton.classList.add('bg-green-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-green-700');
             paymentButton.textContent = 'Pagar';
             paymentButton.addEventListener('click', () => openPaymentPopup(client.cedula));
 
             buttonContainer.appendChild(editButton);
-            buttonContainer.appendChild(deleteButton);
             buttonContainer.appendChild(paymentButton);
+
+            // Agregar botón de eliminar solo si el usuario no es "test"
+            if (currentUser !== 'Dalthon' || currentUser !== 'Jeffry') {
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-red-700');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.addEventListener('click', () => deleteClient(client.cedula));
+                buttonContainer.appendChild(deleteButton);
+            }
 
             clientList.appendChild(tr);
         });
@@ -287,11 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
             paginationContainer.appendChild(button);
         }
     }
-
-    document.getElementById('payment-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        submitPayment();
-    });
 
     searchClientInput.addEventListener('input', () => {
         currentPage = 1;

@@ -13,6 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (username) {
                 document.getElementById("username-display").textContent = `(${username})`;
             }
+
+            // Ocultar enlaces específicos si el usuario es "test"
+            if (username === "Dalthon" || username === "Jeffry") {
+                const productosLink = document.getElementById("productos-link");
+                const membresiasLink = document.getElementById("membresias-link");
+
+                if (productosLink) {
+                    productosLink.style.display = "none";
+                }
+
+                if (membresiasLink) {
+                    membresiasLink.style.display = "none";
+                }
+            }
         })
         .catch(error => console.error("Error:", error));
 });
