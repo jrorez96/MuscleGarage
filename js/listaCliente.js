@@ -181,6 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientsPerPage = 10;
     let currentPage = 1;
 
+    const downloadButton = document.getElementById('download-button');
+    
+    // Mostrar el botón solo si el usuario es administrador
+    if (currentUser === 'admin') {
+        downloadButton.classList.remove('hidden');
+    }
+
+    // Asignar evento click para descargar el Excel
+    downloadButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        descargarExcel();
+    });
+
     async function fetchClients() {
         try {
             const response = await fetch(apiUrl);
@@ -300,3 +313,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchClients();
 });
+
+function descargarExcel() {
+    if (clients.length === 0) {
+        alert("No hay datos para descargar. Realice una consulta primero.");
+        return;
+    }
+
+    // Crear un nuevo libro de Excel y una hoja con los datos
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(clients);
+
+    // Agregar la hoja al libro
+    XLSX.utils.book_append_sheet(wb, ws, "Clientes");
+    XLSX.writeFile(wb, "Lista_Clientes.xlsx");
+}
