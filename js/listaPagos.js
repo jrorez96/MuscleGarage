@@ -19,6 +19,8 @@ async function obtenerPagos(fechaInicio, fechaFin) {
         const pagoList = document.getElementById('pago-list');
         pagoList.innerHTML = '';
 
+        let totalMonto = 0; // Inicializar el total del monto
+
         // Llenar la tabla con los datos obtenidos
         pagos.forEach(pago => {
             const fechaInicioC = pago.fechaDePago ? formatDate(pago.fechaDePago) : 'Sin fecha';
@@ -34,7 +36,19 @@ async function obtenerPagos(fechaInicio, fechaFin) {
                 </td>
             `;
             pagoList.appendChild(row);
+
+            totalMonto += parseFloat(pago.monto);
         });
+
+        // Mostrar el total del monto al final de la tabla
+        const totalRow = document.createElement('tr');
+        totalRow.innerHTML = `
+            <td colspan="4" class="px-6 py-3 font-bold text-right">Total:</td>
+            <td class="px-6 py-3 font-bold">${totalMonto.toFixed(2)}</td>
+            <td></td>
+        `;
+        pagoList.appendChild(totalRow);
+
     } catch (error) {
         console.error('Error al obtener los pagos:', error);
     }
