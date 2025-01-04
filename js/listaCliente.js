@@ -105,6 +105,7 @@ async function openEditClientPopup(cedula) {
         document.getElementById('edit-cedula').value = client.cedula;
         document.getElementById('edit-nombre').value = client.nombre;
         document.getElementById('edit-telefono').value = client.telefono;
+        document.getElementById('edit-direccion').value = client.direccion;
         document.getElementById('edit-correo').value = client.correo;
         document.getElementById('edit-fecha-inicio').value = new Date(client.fechaInicio).toISOString().split('T')[0];
 
@@ -149,11 +150,12 @@ document.getElementById('edit-client-form').addEventListener('submit', async fun
     const cedula = document.getElementById('edit-cedula').value;
     const nombre = document.getElementById('edit-nombre').value;
     const telefono = document.getElementById('edit-telefono').value;
+    const direccion = document.getElementById('edit-direccion').value;
     const correo = document.getElementById('edit-correo').value;
     const membresia = document.getElementById('edit-membresia').value;
     const fechaInicio = document.getElementById('edit-fecha-inicio').value;
 
-    const updatedClient = { cedula, nombre, telefono, correo, membresia, fechaInicio };
+    const updatedClient = { cedula, nombre, telefono, direccion, correo, membresia, fechaInicio };
 
     try {
         const response = await fetch(`${apiUrl}`, {
@@ -234,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="px-6 py-4 whitespace-nowrap">${client.cedula}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${client.nombre}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${client.telefono}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${client.direccion}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${client.correo}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${client.membresia}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${fechaInicioC}</td>
