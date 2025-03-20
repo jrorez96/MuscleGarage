@@ -77,6 +77,7 @@ document.getElementById('descargarReporte').addEventListener('click', () => {
     // Recolectar los datos de la tabla
     pagoList.querySelectorAll('tr').forEach(row => {
         const celdas = row.querySelectorAll('td');
+        if (celdas.length < 5) return;
         const pago = {
             Cedula: celdas[0].textContent,
             Nombre: celdas[1].textContent,
