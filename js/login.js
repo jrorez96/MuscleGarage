@@ -15,7 +15,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     const data = await response.json();
 
     if (response.ok) {
-        window.location.href = '/index.html'; // Redirige a la página principal
+        window.location.href = '/clientes.html'; // Redirige a la página principal
     } else {
         document.getElementById('errorMessage').textContent = data.message || 'Usuario o contraseña incorrectos';
     }

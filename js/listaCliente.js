@@ -65,7 +65,7 @@ async function submitPayment() {
         if (response.ok) {
             console.log('Pago enviado correctamente');
             closePaymentPopup();
-            window.location.href = 'index.html';
+            window.location.href = 'clientes.html';
         } else {
             console.error('Error al enviar el pago');
         }
@@ -90,7 +90,7 @@ async function deleteClient(cedula) {
         const data = await response.json();
         alert(data.message);
         clients = clients.filter(client => client.cedula !== cedula);
-        window.location.href = 'index.html';
+        window.location.href = 'clientes.html';
     } catch (error) {
         console.error('Error al eliminar el cliente:', error);
         alert('Error al eliminar el cliente: ' + error.message);
@@ -143,6 +143,27 @@ function closeEditClientPopup() {
     editPopup.style.display = 'none';
 }
 
+//Funcion para abrir el pop-up de información del cliente
+async function openClientInfoPopup(cedula) {
+    const client = clients.find(c => c.cedula === cedula);
+    if (client) {
+        const infoPopup = document.getElementById('client-info-popup');
+        document.getElementById('info-cedula').value = client.cedula;
+        document.getElementById('info-nombre-contacto').value = client.nombreContacto || 'No disponible';
+        document.getElementById('info-telefono-contacto').value = client.telefonoContacto || 'No disponible';
+        document.getElementById('info-enfermedad').value = client.enfermedad || 'No disponible';
+        infoPopup.style.display = 'block';
+    } else {
+        console.error('Cliente no encontrado');
+    }
+}
+
+// Función para cerrar el pop-up de información del cliente
+function closeClientInfoPopup() {
+    const infoPopup = document.getElementById('client-info-popup');
+    infoPopup.style.display = 'none';
+}
+
 // Función para guardar los cambios del formulario de edición
 document.getElementById('edit-client-form').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -167,7 +188,7 @@ document.getElementById('edit-client-form').addEventListener('submit', async fun
         if (response.ok) {
             console.log('Cliente actualizado correctamente');
             closeEditClientPopup();
-            window.location.href = 'index.html';
+            window.location.href = 'clientes.html';
         } else {
             console.error('Error al actualizar el cliente');
         }
@@ -270,6 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 deleteButton.addEventListener('click', () => deleteClient(client.cedula));
                 buttonContainer.appendChild(deleteButton);
             }
+            const infoButton = document.createElement('button');
+            infoButton.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'rounded', 'hover:bg-blue-700');
+            infoButton.textContent = 'Info';
+            infoButton.addEventListener('click', () => openClientInfoPopup(client.cedula));
+            buttonContainer.appendChild(infoButton);
 
             clientList.appendChild(tr);
         });

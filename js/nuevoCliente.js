@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
             correo: document.getElementById('email').value,
             fechaInicio: document.getElementById('fechaInicio').value,
             membresia: membresiaSelect.value,
-            factura: document.getElementById('factura').value
+            factura: document.getElementById('factura').value,
+            nombreContacto: document.getElementById('nombreContacto').value,
+            telefonoContacto: document.getElementById('telefonoContacto').value,
+            enfermedad: document.getElementById('padeceEnfermedad').value
         };
 
         console.log('Datos del cliente a enviar:', cliente);
@@ -63,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formulario.reset();
             membresiaSelect.innerHTML = '<option value="" disabled selected>Selecciona una membresía</option>';
             cargarMembresias();
-            window.location.href = 'index.html'; // Redirección al index.html
+            window.location.href = 'clientes.html'; // Redirección al clientes.html
         })
         .catch(error => {
             console.error('Error al agregar el cliente:', error);

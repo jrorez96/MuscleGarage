@@ -1,179 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CRM - Clientes</title>
-        <link rel="stylesheet" href="css/tailwind.min.css">
-    </head>
-    <body class="min-h-100 bg-gray-200">
-        <div class="md:flex min-h-screen">
-            <div class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10"
-                id="menu-container"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
 
-            <main class="flex-1 px-5 py-10 bg-gray-200">
-                <h2 class="text-3xl font-light text-center mb-5">Clientes</h2>
+    <div class="flex w-full max-w-4xl bg-white shadow-lg">
+        <!-- Left Image Section -->
+        <div class="w-1/2 h-auto">
+            <img src="img/logo2.JPG" alt="Login Image" class="object-cover w-full h-full">
+        </div>
 
-                <!-- Buscador de clientes -->
-                <div class="flex justify-between items-center mb-5">
-                    <input id="search-client" type="text"
-                        placeholder="Buscar cliente..."
-                        class="appearance-none border rounded py-2 px-3 text-gray-700" />
-                    <a href="nuevo-cliente.html"
-                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Agregar
-                        Cliente</a>
-                    <a href="#"
-                        id="download-button"
-                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 hidden">Descargar
-                        Clientes</a>
+        <!-- Right Form Section -->
+        <div class="w-1/2 p-8">
+            <h2 class="mb-6 text-3xl font-bold text-center text-gray-700">Login</h2>
+            <form id="loginForm">
+                <!-- Usuario Field -->
+                <div class="mb-4">
+                    <label for="Usuario" class="block mb-2 text-sm font-medium text-gray-600">Usuario</label>
+                    <input type="text" id="Usuario" name="Usuario" class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" placeholder="Ingresa tu usuario">
                 </div>
 
-                <!-- Tabla de clientes -->
-                <table class="min-w-full bg-white rounded shadow-md">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Cédula</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Nombre</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Teléfono</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Direccion</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Correo</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Membresía</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha
-                                de Inicio</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Fecha
-                                Fin</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Estado</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="client-list" class="divide-y divide-gray-200">
-                        <!-- Clientes dinámicos aquí -->
-                    </tbody>
-                </table>
+                <!-- Password Field -->
+                <div class="mb-6">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-600">Contraseña</label>
+                    <input type="password" id="password" name="password" class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" placeholder="Ingresa tu contraseña">
+                </div>
 
-                <!-- Controles de paginación -->
-                <div id="pagination" class="mt-5 flex justify-center"></div>
-            </main>
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit" class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
+                        Ingresar
+                    </button>
+                </div>
+            </form>
+            <div id="errorMessage" class="text-red-500 mt-4"></div>
         </div>
+    </div>
 
-        <!-- Formulario emergente de pago -->
-        <div id="payment-popup"
-            class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-6 rounded shadow-md">
-                <h2 class="text-lg font-bold mb-4">Registrar Pago</h2>
-                <form id="payment-form">
-                    <div class="mb-4">
-                        <label for="payment-cedula"
-                            class="block text-gray-700">Cédula:</label>
-                        <input type="text" id="payment-cedula" name="cedula"
-                            class="border rounded w-full py-2 px-3" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label for="payment-membresia"
-                            class="block text-gray-700">Membresía:</label>
-                        <select id="payment-membresia" name="membresia"
-                            class="border rounded w-full py-2 px-3">
-                            <!-- Opciones serán añadidas dinámicamente -->
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="payment-date"
-                            class="block text-gray-700">Fecha de pago:</label>
-                        <input type="date" id="payment-date" name="fecha_pago"
-                            class="border rounded w-full py-2 px-3">
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button"
-                            class="bg-gray-500 text-white py-2 px-4 rounded mr-2"
-                            onclick="closePaymentPopup()">Cancelar</button>
-                        <button type="submit"
-                            class="bg-green-500 text-white py-2 px-4 rounded"
-                            onclick="submitPayment()">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-        <!-- Formulario emergente de edición de cliente -->
-        <div id="edit-client-popup"
-            class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-6 rounded shadow-md">
-                <h2 class="text-lg font-bold mb-4">Editar Cliente</h2>
-                <form id="edit-client-form">
-                    <div class="mb-4">
-                        <label for="edit-cedula"
-                            class="block text-gray-700">Cédula:</label>
-                        <input type="text" id="edit-cedula" name="cedula"
-                            class="border rounded w-full py-2 px-3" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-nombre"
-                            class="block text-gray-700">Nombre:</label>
-                        <input type="text" id="edit-nombre" name="nombre"
-                            class="border rounded w-full py-2 px-3" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-telefono"
-                            class="block text-gray-700">Teléfono:</label>
-                        <input type="text" id="edit-telefono" name="telefono"
-                            class="border rounded w-full py-2 px-3" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-direccion"
-                            class="block text-gray-700">Direccion:</label>
-                        <input type="text" id="edit-direccion" name="direccion"
-                            class="border rounded w-full py-2 px-3" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="edit-correo"
-                            class="block text-gray-700">Correo:</label>
-                        <input type="email" id="edit-correo" name="correo"
-                            class="border rounded w-full py-2 px-3" required>
-                    </div>
-                    <!-- Nuevo campo de Membresía -->
-                    <div class="mb-4">
-                        <label for="edit-membresia"
-                            class="block text-gray-700">Membresía:</label>
-                        <select id="edit-membresia" name="membresia"
-                            class="border rounded w-full py-2 px-3">
-                            <!-- Opciones serán añadidas dinámicamente -->
-                        </select>
-                    </div>
-                    <!-- Nuevo campo de Fecha de Inicio -->
-                    <div class="mb-4">
-                        <label for="edit-fecha-inicio"
-                            class="block text-gray-700">Fecha de Inicio:</label>
-                        <input type="date" id="edit-fecha-inicio"
-                            name="fecha_inicio"
-                            class="border rounded w-full py-2 px-3" required>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button"
-                            class="bg-gray-500 text-white py-2 px-4 rounded mr-2"
-                            onclick="closeEditClientPopup()">Cancelar</button>
-                        <button type="submit"
-                            class="bg-blue-500 text-white py-2 px-4 rounded">Guardar
-                            Cambios</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    const usuario = document.getElementById('Usuario').value;
+    const password = document.getElementById('password').value;
 
-        <script src="js/menu.js"></script>
+    const response = await fetch('https://www.musclegarage.somee.com/Login/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Usuario: usuario, Password: password })
+    });
 
-        <script src="js/listaCliente.js"></script>
+    const data = await response.json();
 
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    </body>
+    if (response.ok) {
+        localStorage.setItem('usuario', usuario);
+        alert('Login exitoso');
+        // Aquí redireccionas al dashboard o guardas el token, si implementas JWT
+        window.location.href = "/clientes.html";
+    } else {
+        document.getElementById('errorMessage').textContent = data.message;
+    }
+});
+
+    </script>
+</body>
 </html>
